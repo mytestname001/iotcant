@@ -29,7 +29,7 @@ void bunchOfLogin();
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 
-#define wifi_uart &huart1
+#define wifi_uart &huart3
 #define pc_uart &huart2
 
 
