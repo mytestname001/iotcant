@@ -26,7 +26,7 @@ void login(char name[8][20], int ledNumber);
 
 void bunchOfLogin();
 
-extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 extern UART_HandleTypeDef huart2;
 
 #define wifi_uart &huart3

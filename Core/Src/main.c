@@ -22,14 +22,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-/*?��2022-07-23 : ESP8266 ?��?��?��?��*/
 
 #include "UartRingbuffer_multi.h"
 #include "stdio.h"
 #include "ESP8266_HAL.h"
 #include "string.h"
-
-/*?��?2022-07-23 : ESP8266 ?��?��?��?��*/
 
 
 
@@ -341,24 +338,12 @@ void SendUltSonicCMD(char TxData, char Parity, GPIO_TypeDef PinBase, uint16_t Pi
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	
-	/*?��2022-07-23 : ESP8266 ?��?��?��?��*/
-	
-	if(htim->Instance == htim2.Instance){ //?��timer2�? 비어?��?��?�� ?��?��. 3?? 4?�� ?��?���?
+	if(htim->Instance == htim2.Instance){
 		
-		//?��US100?�� ?��?��중인�? ?��?��
 		if(isSoundModuleActive){
-			soundModuleCounter++; //?���? 마이?��로초?���? ?��?�� 코드
+			soundModuleCounter++; 
 		}
-		
-		/*
-		if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_5) == GPIO_PIN_SET){
-			scanIF(1);
-		}else{
-			scanIF(0);
-		}*/
 	}
-	
-	/*?��?2022-07-23 : ESP8266 ?��?��?��?��*/
 	
 	
 	if(htim->Instance == htim3.Instance)
@@ -475,7 +460,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN){
 		}else{
 			isSoundModuleActive = 0;
 			
-			printf("Length : %d\r\n", soundModuleCounter);
+			printf("Test Length : %d\r\n", soundModuleCounter);
 			scanIF(soundModuleCounter);
 			soundModuleCounter = 0;
 		}
@@ -537,12 +522,8 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 	
-	/*?��2022-07-23 : ESP8266 ?��?��?��?��*/
 	
-	ESP_Init("<?���wifiSSID>","<?���wifiPassword>"); //?��ESP8266 WIFI 로그?�� 코드
-	//?��"???��?��?�� ?���?", "???��?��?�� 비�?번호"�? ?��?��... 5GHz ?��?�� 불�?
-	
-	/*?��?2022-07-23 : ESP8266 ?��?��?��?��*/
+	ESP_Init("wifiSSID","wifiPassword");
 	
   Uart_Rx_Parity_Mode = 'n'; // 'n':none, 'e':even, 'o':odd
   rxByte_cnt = 0;
@@ -560,7 +541,7 @@ int main(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
 
   tim3_it_start = HAL_TIM_Base_Start_IT(&htim3);
-  tim2_it_start = HAL_TIM_Base_Start_IT(&htim2); //?��sonic?�� ???���?
+  tim2_it_start = HAL_TIM_Base_Start_IT(&htim2);
 
   if((HAL_OK == tim3_it_start) && (HAL_OK == tim2_it_start))
   {
@@ -580,8 +561,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_4);
 	
 	
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_RESET); //?��trigger ?? 초기?��
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET); //?��echo ?? 초기?��
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
 
   /* USER CODE END 2 */
 
@@ -593,12 +574,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		
-		/*?��2022-07-23 : ESP8266 ?��?��?��?��*/
 		
 		scanTrashcan();
-		runUS100(); //?��US 100 ?��?�� 코드
-		
-		/*?��?2022-07-23 : ESP8266 ?��?��?��?��*/
+		runUS100();
 		
 		
 	  HAL_Delay(100);
